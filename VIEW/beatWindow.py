@@ -5,9 +5,13 @@ from pathlib import Path
 from PySide6.QtGui import QPixmap, QIcon, QAction, QGuiApplication, QMovie
 from qt_material import apply_stylesheet
 import qtawesome as qta  #https://fontawesome.com/v5/search?o=r&m=free&s=solid
-import sys
+import numpy as np
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib.pyplot as plt
 
-from VIEW.viewClasses import Splash, Boton, Box, IDLabel
+
+
+from VIEW.viewClasses import Splash, Boton, Box, IDLabel, textEdition, plotable, ComboBoxi
 
 
 
@@ -21,7 +25,9 @@ class BeatWindow(QMainWindow):
         gifPath = self.controller.rightPathCall('mediumHeart.gif')
         self.splash = Splash('#4CC6E0', gifPath) 
         self.setCentralWidget(self.splash)
-        QTimer.singleShot(4000, self.realApp)
+        self.heartIcon = QIcon(self.controller.rightPathCall('heartIcon.png'))
+        self.setWindowIcon(self.heartIcon)
+        QTimer.singleShot(500, self.realApp)    #Modify the splash time
 
 
 
@@ -133,10 +139,27 @@ class BeatWindow(QMainWindow):
         verticalButtons.addWidget(self.downArrowButton, 1)
 
 
-        ecgSignalBox = Box("#373d43")
+        #ecgSignalBox = Box("#373d43")
+        datillos: list = [1,2,3,4,5,6,7,8,9,10,11,12,1,32,56,2,6,2,6,23,5,56,22,56,97]
+        ecgSignalBox = plotable()
+        ecgSignalBox.plot(datillos, 150, '#0cc0df')
         horiSignal = QHBoxLayout()
         horiSignal.addLayout(verticalButtons, 1)
         horiSignal.addWidget(ecgSignalBox, 15)
+
+        #   self.filtersLabel = Box()
+        self.firstDateFilter  = ComboBoxi('Select first Date')
+        self.secondDateFilter = ComboBoxi('Select second Date')
+        self.devFilter        = ComboBoxi('Dev 1')
+        self.devFilter.updateData(['Dev2', 'Dev 3'])
+        self.horiFilters = QHBoxLayout()
+        self.horiFilters.addWidget(self.firstDateFilter, 20)
+        self.horiFilters.addWidget(self.secondDateFilter, 20)
+        self.horiFilters.addWidget(self.devFilter, 15)
+
+        
+
+
 
         leftStat = Box("#373d43")
         mediumStat = Box("#373d43")
@@ -146,10 +169,12 @@ class BeatWindow(QMainWindow):
         horiStats.addWidget(mediumStat)
         horiStats.addWidget(rightStat)
 
-        historical = Box("#373d43")
-        historical.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        signalInfo =Box("#373d43")
-        signalInfo.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.historical = textEdition('#373d43', 'Relevant Medical History of the Pacient')
+        self.historical.textChanged.connect(self.controller.historicalTextChanged)
+        self.signalInfo = textEdition('#373d43', 'Signal relevant findings')
+        self.signalInfo.textChanged.connect(self.controller.signalInfoTextChanged)
+
         self.buttonsCorner = QVBoxLayout()
         self.saveData = Boton('fa5s.save')
         self.saveData.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -163,15 +188,16 @@ class BeatWindow(QMainWindow):
         self.buttonsCorner.addWidget(self.clearData)
         horiInfo = QHBoxLayout()
         splitterInfo =  QSplitter(Qt.Horizontal)
-        splitterInfo.addWidget(historical)
-        splitterInfo.addWidget(signalInfo)
+        splitterInfo.addWidget(self.historical)
+        splitterInfo.addWidget(self.signalInfo)
         horiInfo.addWidget(splitterInfo, 95)
         horiInfo.addLayout(self.buttonsCorner, 5)
 
         rightVPane = QVBoxLayout()
-        rightVPane.addLayout(horiSignal, 2)
-        rightVPane.addLayout(horiStats, 3)
-        rightVPane.addLayout(horiInfo, 2)
+        rightVPane.addLayout(horiSignal, 20)
+        rightVPane.addLayout(self.horiFilters, 13)
+        rightVPane.addLayout(horiStats, 47)
+        rightVPane.addLayout(horiInfo, 20)
         
 
 

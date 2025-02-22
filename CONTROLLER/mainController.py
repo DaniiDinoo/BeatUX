@@ -37,3 +37,13 @@ class MainController:
         pass
     def downArrowPressed(self):
         pass
+
+
+    def historicalTextChanged(self):
+        testo = self.mainWindow.historical.toPlainText()
+        print(type(testo))
+
+
+    def signalInfoTextChanged(self):
+        pass
+        

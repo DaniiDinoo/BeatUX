@@ -11,6 +11,3 @@ if __name__ == '__main__':
     controller = MainController()
     controller.mainWindow.show()
     sys.exit(app.exec())
-
-
-
