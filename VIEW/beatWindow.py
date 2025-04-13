@@ -22,12 +22,12 @@ class BeatWindow(QMainWindow):
         self.controller = controller
         self.setWindowTitle("BeatLink")
         self.resize(1400,700)
-        gifPath = self.controller.rightPathCall('mediumHeart.gif')
-        self.splash = Splash('#4CC6E0', gifPath) 
+        gifPath = self.controller.rightPathCall('transparentGif.gif')
+        self.splash = Splash('#1c1f2a', gifPath) 
         self.setCentralWidget(self.splash)
         self.heartIcon = QIcon(self.controller.rightPathCall('heartIcon.png'))
         self.setWindowIcon(self.heartIcon)
-        QTimer.singleShot(500, self.realApp)    #Modify the splash time
+        QTimer.singleShot(3000, self.realApp)    #Modify the splash time
 
 
 
@@ -115,7 +115,7 @@ class BeatWindow(QMainWindow):
         leftVPane.addWidget(self.registerBox, 77)
         leftVPane.addWidget(self.refreshButton, 9)
         dockDummy = QWidget()
-        dockDummy.setMinimumWidth(200)
+        dockDummy.setMinimumWidth(250)
         dockDummy.setLayout(leftVPane)
 
         self.leftVPaneDock = QDockWidget()
@@ -139,13 +139,23 @@ class BeatWindow(QMainWindow):
         verticalButtons.addWidget(self.downArrowButton, 1)
 
 
-        #ecgSignalBox = Box("#373d43")
-        datillos: list = [1,2,3,4,5,6,7,8,9,10,11,12,1,32,56,2,6,2,6,23,5,56,22,56,97]
-        ecgSignalBox = plotable()
-        ecgSignalBox.plot(datillos, 150, '#0cc0df')
+ 
+        ecgSignalBoxDI = plotable()
+        ecgSignalBoxDI.plot([],0,'cyan')
+        ecgSignalBoxDII = plotable()
+        ecgSignalBoxDII.plot([],0,'cyan')
+        ecgSignalBoxDIII = plotable()
+        ecgSignalBoxDIII.plot([],0,'cyan')
+
+        vertiSignals = QVBoxLayout()
+        vertiSignals.addWidget(ecgSignalBoxDI)
+        vertiSignals.addWidget(ecgSignalBoxDII)
+        vertiSignals.addWidget(ecgSignalBoxDIII)
+
+        
         horiSignal = QHBoxLayout()
-        horiSignal.addLayout(verticalButtons, 1)
-        horiSignal.addWidget(ecgSignalBox, 15)
+        horiSignal.addLayout(verticalButtons, 2)
+        horiSignal.addLayout(vertiSignals, 15)
 
         #   self.filtersLabel = Box()
         self.firstDateFilter  = ComboBoxi('Select first Date')
@@ -194,9 +204,9 @@ class BeatWindow(QMainWindow):
         horiInfo.addLayout(self.buttonsCorner, 5)
 
         rightVPane = QVBoxLayout()
-        rightVPane.addLayout(horiSignal, 20)
+        rightVPane.addLayout(horiSignal, 40)
         rightVPane.addLayout(self.horiFilters, 13)
-        rightVPane.addLayout(horiStats, 47)
+        rightVPane.addLayout(horiStats, 27)
         rightVPane.addLayout(horiInfo, 20)
         
 
