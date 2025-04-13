@@ -94,7 +94,3 @@ class fetchData:
         return signal_filtered
 
 
-       
-
-
-            

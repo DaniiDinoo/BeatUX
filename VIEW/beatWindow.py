@@ -160,8 +160,8 @@ class BeatWindow(QMainWindow):
         #   self.filtersLabel = Box()
         self.firstDateFilter  = ComboBoxi('Select first Date')
         self.secondDateFilter = ComboBoxi('Select second Date')
-        self.devFilter        = ComboBoxi('Dev 1')
-        self.devFilter.updateData(['Dev2', 'Dev 3'])
+        self.devFilter        = ComboBoxi('Cyan Waveform')
+        self.devFilter.updateData(['Green Waveform', 'White Waveform'])
         self.horiFilters = QHBoxLayout()
         self.horiFilters.addWidget(self.firstDateFilter, 20)
         self.horiFilters.addWidget(self.secondDateFilter, 20)
@@ -217,4 +217,5 @@ class BeatWindow(QMainWindow):
         dummyWidget.setLayout(rightVPane)
 
         self.setCentralWidget(dummyWidget)
+        self.controller.launchActions()
 

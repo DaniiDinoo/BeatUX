@@ -43,11 +43,12 @@ class MainController:
 
         identJson= jsonOperations("IDENTIFIERS")
         ides = identJson.getIDs()
+        self.mainWindow.patientRegisterBox.clear()
+        # self.mainWindow.patientRegisterBox
         for id in ides:
             patient = QTreeWidgetItem([str(id)])
             self.mainWindow.patientRegisterBox.addTopLevelItem(patient)
             #CORREGIR QUE SE ESCRIBAN DE NUEVO EN LA jerarquía.
-
         
 
         
@@ -69,4 +70,11 @@ class MainController:
 
     def signalInfoTextChanged(self):
         pass
-        
+
+
+    def launchActions(self):
+        identJson= jsonOperations("IDENTIFIERS")
+        ides = identJson.getIDs()
+        for id in ides:
+            patient = QTreeWidgetItem([str(id)])
+            self.mainWindow.patientRegisterBox.addTopLevelItem(patient)
