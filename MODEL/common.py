@@ -1,5 +1,6 @@
 from pathlib import Path
 from scipy.signal import butter, filtfilt, iirnotch
+from MODEL.jsonOperations import jsonOperations
 
 class Common:
     @staticmethod
@@ -21,6 +22,7 @@ class fetchData:
         DIroute = baseRoute + '/DI.txt'
         DIIroute = baseRoute + '/DII.txt'
         DIIIroute = baseRoute + '/DIII.txt'
+        
         signalFileDI = open(DIroute, 'r')
         DI = signalFileDI.readlines()
 
@@ -42,6 +44,21 @@ class fetchData:
         # ecgReturnableSignals['DI'] = DI
         # ecgReturnableSignals['DII'] = DII
         # ecgReturnableSignals['DIII'] = DIII
+
+
+        #Debería recibir una estructura con: (la estructura podría ser una lista de objetos)
+        #ID PACIENTE
+            #DI vector
+            #DII vector
+            #DIII vector
+            #Fecha de registro (posiblemente)
+        
+        identJson = jsonOperations('IDENTIFIERS')
+        identJson.addID(2512)
+        identJson.addID(1511)
+        #Y para cada objeto, revisar si ya existe su identificador en el .json IDENTIFIERS.json
+        #Si no exixte, agregarlo
+
 
 
 

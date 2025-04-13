@@ -20,7 +20,7 @@ def delete_pycache_dirs(path='.'):
                 shutil.rmtree(full_path)
 
 if __name__ == '__main__':
-    delete_pycache_dirs()
+    #delete_pycache_dirs()
     app = QApplication(sys.argv)
     apply_stylesheet(app, 'dark_cyan.xml')  
     controller = MainController()

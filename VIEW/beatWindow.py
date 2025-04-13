@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import (QMainWindow, QLabel, QVBoxLayout, QHBoxLayout, QDockWidget, QToolBar, QWidget, QSizePolicy,QSplitter,
-                               QStatusBar, QMessageBox, QInputDialog, QPushButton)
+                               QStatusBar, QMessageBox, QInputDialog, QPushButton, QTreeView)
 from PySide6.QtCore import Qt, QTimer
 from pathlib import Path
 from PySide6.QtGui import QPixmap, QIcon, QAction, QGuiApplication, QMovie
@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 
 
-from VIEW.viewClasses import Splash, Boton, Box, IDLabel, textEdition, plotable, ComboBoxi
+from VIEW.viewClasses import Splash, Boton, Box, IDLabel, textEdition, plotable, ComboBoxi, Hierarchy
 
 
 
@@ -101,8 +101,8 @@ class BeatWindow(QMainWindow):
         self.addToolBar(Qt.LeftToolBarArea, tools)
 
     def layoutBuilder(self):
-        self.idAndName = Box("#373d43")
-        self.registerBox = Box("#373d43")
+        self.idAndName = Box("#373D43")
+        self.patientRegisterBox = Hierarchy("#373D43")
         self.idLabel = IDLabel("#####", "#373D43")
         self.refreshButton = Boton('fa5s.sync-alt')
         self.refreshButton.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
@@ -112,7 +112,7 @@ class BeatWindow(QMainWindow):
         leftVPane = QVBoxLayout()
         leftVPane.addWidget(self.idAndName, 7)
         leftVPane.addWidget(self.idLabel, 7)
-        leftVPane.addWidget(self.registerBox, 77)
+        leftVPane.addWidget(self.patientRegisterBox, 77)
         leftVPane.addWidget(self.refreshButton, 9)
         dockDummy = QWidget()
         dockDummy.setMinimumWidth(250)

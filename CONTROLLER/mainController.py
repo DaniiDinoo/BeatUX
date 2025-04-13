@@ -1,8 +1,11 @@
 from VIEW.beatWindow import BeatWindow
+from PySide6.QtWidgets import QTreeWidgetItem
 from MODEL.common import Common
 from MODEL.common import fetchData
 import webbrowser
 from VIEW.viewClasses import Box
+
+from MODEL.jsonOperations import jsonOperations
 
 class MainController:
     def __init__(self):
@@ -37,6 +40,14 @@ class MainController:
         # self.mainWindow.ecgSignalBoxDI.plot(DI,1000, 'cyan')
         # self.mainWindow.ecgSignalBoxDII.plot(DII,1000, 'cyan')
         # self.mainWindow.ecgSignalBoxDIII.plot(DIII,1000, 'cyan')
+
+        identJson= jsonOperations("IDENTIFIERS")
+        ides = identJson.getIDs()
+        for id in ides:
+            patient = QTreeWidgetItem([str(id)])
+            self.mainWindow.patientRegisterBox.addTopLevelItem(patient)
+            #CORREGIR QUE SE ESCRIBAN DE NUEVO EN LA jerarquía.
+
         
 
         

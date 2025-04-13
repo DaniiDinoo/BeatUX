@@ -1,6 +1,6 @@
 
 from PySide6.QtWidgets import (QMainWindow, QLabel, QVBoxLayout, QHBoxLayout, QDockWidget, QToolBar, QWidget, QSizePolicy,
-                               QStatusBar, QMessageBox, QInputDialog, QPushButton, QLineEdit, QTextEdit, QComboBox)
+                               QStatusBar, QMessageBox, QInputDialog, QPushButton, QLineEdit, QTextEdit, QComboBox, QTreeWidget)
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QPixmap, QIcon, QAction, QGuiApplication, QMovie
 from qt_material import apply_stylesheet
@@ -100,3 +100,8 @@ class ComboBoxi(QComboBox):
         self.addItems(self.data)
 
 
+class Hierarchy(QTreeWidget):
+    def __init__(self, color: str):
+        super().__init__()
+        self.setStyleSheet(f'background-color: {color}')
+        self.setHeaderLabels(["Patients"])
