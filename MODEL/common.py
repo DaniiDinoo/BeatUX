@@ -1,6 +1,7 @@
 from pathlib import Path
 from scipy.signal import butter, filtfilt, iirnotch
 from MODEL.jsonOperations import jsonOperations
+from MODEL.commonClasses import Register
 
 class Common:
     @staticmethod
@@ -40,6 +41,9 @@ class fetchData:
         DI = self.filter_ecg_signal(DI, 1000, 60 , 30,80 , 5)
         DII = self.filter_ecg_signal(DII, 1000, 60 , 30,80 , 5)
         DIII = self.filter_ecg_signal(DIII, 1000, 60 , 30, 80, 5)
+
+
+        
         # ecgReturnableSignals: dict = {}
         # ecgReturnableSignals['DI'] = DI
         # ecgReturnableSignals['DII'] = DII
@@ -53,9 +57,9 @@ class fetchData:
             #DIII vector
             #Fecha de registro (posiblemente)
         
-        identJson = jsonOperations('IDENTIFIERS')
-        identJson.addID(2512)
-        identJson.addID(1511)
+        # identJson = jsonOperations('IDENTIFIERS')
+        # identJson.addID(2512)
+        # identJson.addID(1511)
         #Y para cada objeto, revisar si ya existe su identificador en el .json IDENTIFIERS.json
         #Si no exixte, agregarlo
 
@@ -63,6 +67,16 @@ class fetchData:
 
 
         # return ecgReturnableSignals
+
+
+        #Señales falsas:
+        DIFALSA: list = [1,2,3,4,5,6,7,8,9,10]
+        DIIFALSA: list = [11,12,13,14,15,16,17,18,19,20]
+        DIIIFALSA: list = [21,22,23,24,25,26,27,28,29,30]
+
+        idPacienteFalso = 4444
+
+        prueba = Register(idPacienteFalso, DIFALSA, DIIFALSA, DIIIFALSA)
 
 
 

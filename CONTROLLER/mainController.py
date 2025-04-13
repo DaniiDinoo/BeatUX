@@ -33,7 +33,7 @@ class MainController:
         pass
 
     def refreshButtonPressed(self):
-        self.ecgData: dict = self.fetchData.getNewData()
+        self.fetchData.getNewData()
         # DI = self.ecgData['DI']
         # DII = self.ecgData['DII']
         # DIII = self.ecgData['DIII']
@@ -41,7 +41,7 @@ class MainController:
         # self.mainWindow.ecgSignalBoxDII.plot(DII,1000, 'cyan')
         # self.mainWindow.ecgSignalBoxDIII.plot(DIII,1000, 'cyan')
 
-        identJson= jsonOperations("IDENTIFIERS")
+        identJson= jsonOperations("IDENTIFIERS", "IDS")
         ides = identJson.getIDs()
         self.mainWindow.patientRegisterBox.clear()
         # self.mainWindow.patientRegisterBox
@@ -73,7 +73,7 @@ class MainController:
 
 
     def launchActions(self):
-        identJson= jsonOperations("IDENTIFIERS")
+        identJson= jsonOperations("IDENTIFIERS", "IDS")
         ides = identJson.getIDs()
         for id in ides:
             patient = QTreeWidgetItem([str(id)])
