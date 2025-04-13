@@ -1,4 +1,5 @@
 from pathlib import Path
+from scipy.signal import butter, filtfilt, iirnotch
 
 class Common:
     @staticmethod
@@ -29,13 +30,52 @@ class fetchData:
         signalFileDIII = open(DIIIroute, 'r')
         DIII = signalFileDIII.readlines()
 
+        for i in range(0, len(DI)):
+            DI[i] = float(DI[i])
+            DII[i] = float(DII[i])
+            DIII[i] = float(DIII[i])
 
-        ecgReturnableSignals: dict = {}
-        ecgReturnableSignals['DI'] = DI
-        ecgReturnableSignals['DII'] = DII
-        ecgReturnableSignals['DIII'] = DIII
-        
-        return ecgReturnableSignals
+        DI = self.filter_ecg_signal(DI, 1000, 60 , 30,80 , 5)
+        DII = self.filter_ecg_signal(DII, 1000, 60 , 30,80 , 5)
+        DIII = self.filter_ecg_signal(DIII, 1000, 60 , 30, 80, 5)
+        # ecgReturnableSignals: dict = {}
+        # ecgReturnableSignals['DI'] = DI
+        # ecgReturnableSignals['DII'] = DII
+        # ecgReturnableSignals['DIII'] = DIII
+
+
+
+        # return ecgReturnableSignals
+
+
+
+
+
+    def filter_ecg_signal(self, signal, fs, notch_freq, q, lowpass_cutoff, lowpass_order):
+        """
+        Filtra una señal ECG aplicando un filtro notch para eliminar 60 Hz y
+        un filtro pasa-bajos para eliminar altas frecuencias.
+
+        :param signal: Lista o array de la señal de entrada
+        :param fs: Frecuencia de muestreo en Hz
+        :param notch_freq: Frecuencia del filtro notch (por defecto 60 Hz)
+        :param q: Factor de calidad del filtro notch
+        :param lowpass_cutoff: Frecuencia de corte del filtro pasa-bajos
+        :param lowpass_order: Orden del filtro pasa-bajos
+        :return: Señal filtrada
+        """
+        # Filtro notch
+        b_notch, a_notch = iirnotch(notch_freq, q, fs)
+        signal_notched = filtfilt(b_notch, a_notch, signal)
+
+        # Filtro pasa-bajos
+        nyq = 0.5 * fs
+        normal_cutoff = lowpass_cutoff / nyq
+        b_low, a_low = butter(lowpass_order, normal_cutoff, btype='low', analog=False)
+        signal_filtered = filtfilt(b_low, a_low, signal_notched)
+
+        return signal_filtered
+
 
        
 

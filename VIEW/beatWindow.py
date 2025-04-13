@@ -140,17 +140,17 @@ class BeatWindow(QMainWindow):
 
 
  
-        ecgSignalBoxDI = plotable()
-        ecgSignalBoxDI.plot([],0,'cyan')
-        ecgSignalBoxDII = plotable()
-        ecgSignalBoxDII.plot([],0,'cyan')
-        ecgSignalBoxDIII = plotable()
-        ecgSignalBoxDIII.plot([],0,'cyan')
+        self.ecgSignalBoxDI = plotable()
+        self.ecgSignalBoxDI.plot([],0,'cyan')
+        self.ecgSignalBoxDII = plotable()
+        self.ecgSignalBoxDII.plot([],0,'cyan')
+        self.ecgSignalBoxDIII = plotable()
+        self.ecgSignalBoxDIII.plot([],0,'cyan')
 
         vertiSignals = QVBoxLayout()
-        vertiSignals.addWidget(ecgSignalBoxDI)
-        vertiSignals.addWidget(ecgSignalBoxDII)
-        vertiSignals.addWidget(ecgSignalBoxDIII)
+        vertiSignals.addWidget(self.ecgSignalBoxDI)
+        vertiSignals.addWidget(self.ecgSignalBoxDII)
+        vertiSignals.addWidget(self.ecgSignalBoxDIII)
 
         
         horiSignal = QHBoxLayout()

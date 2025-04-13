@@ -69,6 +69,7 @@ class plotable(QWidget):
         self.lineColor: str = ''
 
         self.figure, self.ax = plt.subplots()
+        self.ax.grid(True)
         self.canvas = FigureCanvas(self.figure)
         layout = QVBoxLayout()
         layout.addWidget(self.canvas)

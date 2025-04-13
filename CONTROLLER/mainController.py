@@ -31,8 +31,14 @@ class MainController:
 
     def refreshButtonPressed(self):
         self.ecgData: dict = self.fetchData.getNewData()
-        for signal in self.ecgData:
-            print(signal)
+        # DI = self.ecgData['DI']
+        # DII = self.ecgData['DII']
+        # DIII = self.ecgData['DIII']
+        # self.mainWindow.ecgSignalBoxDI.plot(DI,1000, 'cyan')
+        # self.mainWindow.ecgSignalBoxDII.plot(DII,1000, 'cyan')
+        # self.mainWindow.ecgSignalBoxDIII.plot(DIII,1000, 'cyan')
+        
+
         
 
 
